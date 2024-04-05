@@ -35,3 +35,14 @@ jobs:
         run: |
           docker tag myimage:latest spchuah1/intel1:latest
           docker push spchuah1/intel1:latest
+         
+  deploy:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: clone the repository
+        uses: actions/checkout@v4.1.2
+      - name: Deploy the k8s deployment
+        run: |
+          sudo kubectl apply -f deployment.yml
+          sudo kubectl get pods
