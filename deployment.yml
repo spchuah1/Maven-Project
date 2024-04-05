@@ -1,35 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
-  labels:
-    app: myapp
+  name: sp-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: myapp
+      app: my-sp
   template:
     metadata:
       labels:
-        app: myapp
+        app: my-sp
     spec:
       containers:
-      - name: my-container
-        image: gagandeepthinknyx/dell-app1
-        imagePullPolicy: Always
+      - name: my-image
+        image: spchuah1/intel1:latest
         ports:
         - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: myapp
-spec:
-  type: NodePort
-  ports:
-  - port: 8080
-    targetPort: 8080
-    nodePort: 31000 
-  selector:
-    app: myapp 
